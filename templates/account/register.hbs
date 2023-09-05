@@ -298,6 +298,7 @@
             {{/if}}
         </div>
     </div>
+    {{#if (equal local_enabled true)}}
     <script type="module">
         import init, * as Rust from "./assets/wasm/wasm_pbkdf2.js";
 
@@ -327,6 +328,7 @@
             });
         })();
     </script>
+    {{/if}}    
 </body>
 
 </html>
