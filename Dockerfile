@@ -45,6 +45,8 @@ RUN cd crates/alexandrie && cargo build --release --no-default-features --featur
 FROM debian:buster-slim as runner
 
 ARG DATABASE
+ARG USER_ID=1000
+ARG GROUP_ID=1000
 
 # install run dependencies, then clean up apt cache
 RUN apt update && \
@@ -53,6 +55,20 @@ RUN apt update && \
     if [ "${DATABASE}" = "postgres" ]; then apt install -y  postgresql; fi && \
     if [ "${DATABASE}" = "mysql" ]; then apt install -y default-mysql-server default-mysql-client; fi && \
     apt-get clean && rm -rf /var/lib/apt/lists/
+
+# combine run instructions to reduce docker layers & overall image size
+RUN \
+    # make a non-root user
+    groupadd -g ${GROUP_ID} alex && \
+    useradd -u ${USER_ID} -g ${GROUP_ID} alex && \
+    # make the user directory & give them access to everything in it
+    # mkdir -p /home/alex && \
+    mkdir -p /home/alex/.ssh && \
+    chown -R ${USER_ID}:${GROUP_ID} /home/alex && \
+    # give alex ownership of diesel
+    chown ${USER_ID}:${GROUP_ID} /usr/bin/diesel && \
+    # give alex ownership of the startup script & make it executable
+    chmod +x /home/alex/startup.sh
 
 # copy run files
 COPY --from=builder /alexandrie/target/release/alexandrie /usr/bin/alexandrie
@@ -68,22 +84,7 @@ COPY migrations /home/alex/migrations
 # copy diesel config
 # COPY diesel.toml /home/alex/diesel.toml
 
-ARG USER_ID=1000
-ARG GROUP_ID=1000
-
-# combine run instructions to reduce docker layers & overall image size
-RUN \
-    # make a non-root user
-    groupadd -g ${GROUP_ID} alex && \
-    useradd -u ${USER_ID} -g ${GROUP_ID} alex && \
-    # make the user directory & give them access to everything in it
-    # mkdir -p /home/alex && \
-    mkdir -p /home/alex/.ssh && \
-    chown -R ${USER_ID}:${GROUP_ID} /home/alex && \
-    # give alex ownership of diesel
-    chown ${USER_ID}:${GROUP_ID} /usr/bin/diesel && \
-    # give alex ownership of the startup script & make it executable
-    chmod +x /home/alex/startup.sh
+RUN chown -R ${USER_ID}:${GROUP_ID} /home/alex
 
 # switch to the non-root user to run the main process
 USER alex
