@@ -63,7 +63,8 @@ RUN \
     useradd -u ${USER_ID} -g ${GROUP_ID} alex && \
     # make the user directory & give them access to everything in it
     # mkdir -p /home/alex && \
-    mkdir -p /home/alex/.ssh;
+    mkdir -p /home/alex/.ssh && \
+    mkdir -p /home/alex/appdata;
 
 # copy run files
 COPY --from=builder /alexandrie/target/release/alexandrie /usr/bin/alexandrie
@@ -84,7 +85,7 @@ RUN chown -R ${USER_ID}:${GROUP_ID} /home/alex && \
     chown ${USER_ID}:${GROUP_ID} /usr/bin/diesel && \
     # give alex ownership of the startup script & make it executable
     chmod +x /home/alex/startup.sh
-    
+
 # switch to the non-root user to run the main process
 USER alex
 WORKDIR /home/alex
