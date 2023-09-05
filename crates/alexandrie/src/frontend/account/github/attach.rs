@@ -8,7 +8,7 @@ use crate::State;
 
 pub(crate) async fn get(mut req: Request<State>) -> tide::Result {
     let Some(author) = req.get_author() else {
-        return Ok(utils::response::redirect("/account/manage"));
+        return Ok(utils::response::redirect(req.state(), "account/manage"));
     };
 
     let github_config = &req.state().frontend.config.auth.github;
@@ -42,5 +42,5 @@ pub(crate) async fn get(mut req: Request<State>) -> tide::Result {
     };
     req.session_mut().insert(GITHUB_LOGIN_STATE_KEY, &data)?;
 
-    return Ok(utils::response::redirect(url.as_str()));
+    return Ok(utils::response::redirect(req.state(), url.as_str()));
 }

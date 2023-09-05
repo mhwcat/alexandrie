@@ -84,7 +84,7 @@ pub(crate) async fn get(mut req: Request<State>) -> tide::Result {
             );
         }
         (false, Some(_)) => {
-            return Ok(utils::response::redirect(""));
+            return Ok(utils::response::redirect(req.state(), ""));
         }
         (false, None) => None,
     };
@@ -204,7 +204,7 @@ pub(crate) async fn get(mut req: Request<State>) -> tide::Result {
                 .set(authors::github_id.eq(github_id.as_str()))
                 .execute(conn)?;
 
-            return Ok(utils::response::redirect(""));
+            return Ok(utils::response::redirect(req.state(), ""));
         }
 
         //? Is this GitHub account attached to an existing author ?
@@ -273,7 +273,7 @@ pub(crate) async fn get(mut req: Request<State>) -> tide::Result {
         req.session_mut().insert("author.id", author_id)?;
         req.session_mut().expire_in(expiry);
 
-        return Ok(utils::response::redirect(""));
+        return Ok(utils::response::redirect(req.state(), ""));
     });
 
     transaction.await

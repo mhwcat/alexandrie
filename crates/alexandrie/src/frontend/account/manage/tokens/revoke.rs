@@ -12,7 +12,7 @@ pub(crate) async fn get(mut req: Request<State>) -> tide::Result {
     let author = match req.get_author() {
         Some(author) => author,
         None => {
-            return Ok(utils::response::redirect("account/manage"));
+            return Ok(utils::response::redirect(req.state(), "account/manage"));
         }
     };
 
@@ -41,14 +41,14 @@ pub(crate) async fn get(mut req: Request<State>) -> tide::Result {
                 let flash_message = ManageFlashMessage::TokenRevocationSuccess { message };
                 req.session_mut()
                     .insert(ACCOUNT_MANAGE_FLASH, &flash_message)?;
-                Ok(utils::response::redirect("account/manage"))
+                Ok(utils::response::redirect(req.state(), "account/manage"))
             }
             Some(_) | None => {
                 let message = String::from("invalid token to revoke.");
                 let flash_message = ManageFlashMessage::TokenRevocationError { message };
                 req.session_mut()
                     .insert(ACCOUNT_MANAGE_FLASH, &flash_message)?;
-                Ok(utils::response::redirect("account/manage"))
+                Ok(utils::response::redirect(req.state(), "account/manage"))
             }
         }
     });

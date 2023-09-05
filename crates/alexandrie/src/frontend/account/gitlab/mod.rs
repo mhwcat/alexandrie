@@ -52,5 +52,5 @@ pub(crate) async fn get(mut req: Request<State>) -> tide::Result {
     };
     req.session_mut().insert(GITLAB_LOGIN_STATE_KEY, &data)?;
 
-    return Ok(utils::response::redirect(url.as_str()));
+    return Ok(utils::response::redirect(req.state(), url.as_str()));
 }

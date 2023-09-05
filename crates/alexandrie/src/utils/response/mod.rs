@@ -69,6 +69,6 @@ pub fn error_html(
 /// Constructs a redirection response (302 Found) to the specified URL.
 pub fn redirect(state: &State, url: &str) -> Response {
     let mut response = Response::new(StatusCode::Found);
-    response.insert_header("location", state.frontend.config.base_address + url);
+    response.insert_header("location", state.frontend.config.base_address.clone() + url);
     response
 }
