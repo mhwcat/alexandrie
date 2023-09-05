@@ -270,7 +270,7 @@
                 <div class="most-downloaded-title">Most downloaded</div>
                 <div class="most-downloaded-entries">
                     {{#each most_downloaded}}
-                    <a class="most-downloaded-entry elevated" href="/crates/{{ this.name }}">
+                    <a class="most-downloaded-entry elevated" href="crates/{{ this.name }}">
                         <b>{{ this.name }}</b>: {{ this.downloads }} downloads
                     </a>
                     {{else}}
@@ -278,14 +278,14 @@
                     {{/each}}
                 </div>
                 <div class="card-footer">
-                    <a class="card-footer-button elevated" href="/most-downloaded">See more...</a>
+                    <a class="card-footer-button elevated" href="most-downloaded">See more...</a>
                 </div>
             </div>
             <div class="last-updated">
                 <div class="last-updated-title">Last updated</div>
                 <div class="last-updated-entries">
                     {{#each last_updated}}
-                    <a class="last-updated-entry elevated" href="/crates/{{ this.name }}">
+                    <a class="last-updated-entry elevated" href="crates/{{ this.name }}">
                         <b>{{ this.name }}</b>: {{ this.updated_at }}
                     </a>
                     {{else}}
@@ -293,7 +293,7 @@
                     {{/each}}
                 </div>
                 <div class="card-footer">
-                    <a class="card-footer-button elevated" href="/last-updated">See more...</a>
+                    <a class="card-footer-button elevated" href="last-updated">See more...</a>
                 </div>
             </div>
         </div>

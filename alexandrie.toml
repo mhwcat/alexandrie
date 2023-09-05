@@ -12,6 +12,7 @@ links = [
     { name = "User documentation", href = "https://hirevo.github.io/alexandrie" },
 ]
 login_required = false
+base_address = "/"
 
 [frontend.sessions]
 cookie_name = "alexandrie.sid"

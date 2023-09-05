@@ -245,7 +245,7 @@
     <div class="page-container">
         <div class="register-container">
             {{#if (equal local_enabled true)}}
-            <form class="register-content" method="POST" action="/account/register">
+            <form class="register-content" method="POST" action="account/register">
                 <div class="register-field">
                     <label class="register-label" for="email">Email:</label>
                     <input class="register-input" type="email" name="email" id="email" placeholder="Enter email..." autocomplete="email" required>
@@ -274,7 +274,7 @@
                 </div>
                 {{/if}}
                 <input type="submit" value="Register" class="register-button">
-                <a class="register-link" href="/account/login">
+                <a class="register-link" href="account/login">
                     <div class="register-button">Already have an account ?</div>
                 </a>
             </form>
@@ -287,19 +287,19 @@
             </div>
             {{/if}}
             {{#if (equal github_enabled true)}}
-            <a class="register-link" href="/account/github">
+            <a class="register-link" href="account/github">
                 <div class="register-button">Register with GitHub</div>
             </a>
             {{/if}}
             {{#if (equal gitlab_enabled true)}}
-            <a class="register-link" href="/account/gitlab">
+            <a class="register-link" href="account/gitlab">
                 <div class="register-button">Register with GitLab</div>
             </a>
             {{/if}}
         </div>
     </div>
     <script type="module">
-        import init, * as Rust from "/assets/wasm/wasm_pbkdf2.js";
+        import init, * as Rust from "assets/wasm/wasm_pbkdf2.js";
 
         // A byte order mark character can show up as a result of the conversion
         // between Rust strings (UTF-8) and JavaScript strings (UTF-16).

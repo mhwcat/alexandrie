@@ -244,7 +244,7 @@
     <div class="page-container">
         <div class="login-container">
             {{#if (equal local_enabled true)}}
-            <form class="login-content" method="POST" action="/account/login">
+            <form class="login-content" method="POST" action="account/login">
                 <div class="login-field">
                     <label class="login-label" for="email">Email:</label>
                     <input class="login-input" type="email" name="email" id="email" placeholder="Enter email..." autocomplete="email" required>
@@ -266,7 +266,7 @@
                 {{/if}}
                 <input type="submit" value="Log in" class="login-button">
                 {{#if (equal local_allowed_registration "true")}}
-                <a class="login-link" href="/account/register">
+                <a class="login-link" href="account/register">
                     <div class="login-button">Need to create an account ?</div>
                 </a>
                 {{/if}}
@@ -280,19 +280,19 @@
             </div>
             {{/if}}
             {{#if (equal github_enabled true)}}
-            <a class="login-link" href="/account/github">
+            <a class="login-link" href="account/github">
                 <div class="login-button">Log in with GitHub</div>
             </a>
             {{/if}}
             {{#if (equal gitlab_enabled true)}}
-            <a class="login-link" href="/account/gitlab">
+            <a class="login-link" href="account/gitlab">
                 <div class="login-button">Log in with GitLab</div>
             </a>
             {{/if}}
         </div>
     </div>
     <script type="module">
-        import init, * as Rust from "/assets/wasm/wasm_pbkdf2.js";
+        import init, * as Rust from "assets/wasm/wasm_pbkdf2.js";
 
         // A byte order mark character can show up as a result of the conversion
         // between Rust strings (UTF-8) and JavaScript strings (UTF-16).

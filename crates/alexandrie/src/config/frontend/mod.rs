@@ -14,6 +14,10 @@ fn enabled_def() -> bool {
     true
 }
 
+fn base_address_def() -> String {
+    "/".to_string()
+}
+
 /// Represent a link entry.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Link {
@@ -70,6 +74,9 @@ pub struct FrontendConfig {
     pub sessions: SessionsConfig,
     /// The authentication configuration.
     pub auth: AuthConfig,
+    /// Base address of app
+    #[serde(default = "base_address_def")]
+    pub base_address: String,
 }
 
 /// The frontend state struct, created from [FrontendConfig].

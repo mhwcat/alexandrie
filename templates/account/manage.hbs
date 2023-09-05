@@ -438,7 +438,7 @@
     <div class="manage-container">
         <div class="manage-grid-container">
             <div class="manage-grid">
-                <form class="manage-passwd" method="POST" action="/account/manage/password">
+                <form class="manage-passwd" method="POST" action="account/manage/password">
                     <div class="manage-passwd-title">Change password</div>
                     <div class="manage-passwd-fields">
                         <div class="manage-passwd-field">
@@ -477,13 +477,13 @@
                             {{#if author.github_id}}
                             <div class="grouped">
                                 <div class="grouped-label">GitHub</div>
-                                <a class="grouped-button" href="/account/github/detach">Detach</a>
+                                <a class="grouped-button" href="account/github/detach">Detach</a>
                             </div>
                             {{/if}}
                             {{#if author.gitlab_id}}
                             <div class="grouped">
                                 <div class="grouped-label">GitLab</div>
-                                <a class="grouped-button" href="/account/gitlab/detach">Detach</a>
+                                <a class="grouped-button" href="account/gitlab/detach">Detach</a>
                             </div>
                             {{/if}}
                         </div>
@@ -492,13 +492,13 @@
                             {{#unless author.github_id}}
                             <div class="grouped">
                                 <div class="grouped-label">GitHub</div>
-                                <a class="grouped-button" href="/account/github/attach">Attach</a>
+                                <a class="grouped-button" href="account/github/attach">Attach</a>
                             </div>
                             {{/unless}}
                             {{#unless author.gitlab_id}}
                             <div class="grouped">
                                 <div class="grouped-label">GitLab</div>
-                                <a class="grouped-button" href="/account/gitlab/attach">Attach</a>
+                                <a class="grouped-button" href="account/gitlab/attach">Attach</a>
                             </div>
                             {{/unless}}
                         </div>
@@ -513,13 +513,13 @@
                         {{#each tokens}}
                         <div class="grouped">
                             <div class="grouped-label">{{ this.name }}</div>
-                            <a class="grouped-button" href="/account/manage/tokens/{{ this.id }}/revoke">Revoke</a>
+                            <a class="grouped-button" href="account/manage/tokens/{{ this.id }}/revoke">Revoke</a>
                         </div>
                         {{else}}
                         <div class="manage-tokens-empty">No tokens...</div>
                         {{/each}}
                     </div>
-                    <form class="manage-tokens-create" method="POST" action="/account/manage/tokens">
+                    <form class="manage-tokens-create" method="POST" action="account/manage/tokens">
                         <div class="manage-tokens-field">
                             <label class="manage-tokens-label" for="token-name">New token name:</label>
                             <input class="manage-tokens-input" type="text" name="token-name" id="token-name" placeholder="Enter token name..." required>
@@ -546,7 +546,7 @@
         </div>
     </div>
     <script type="module">
-        import init, * as Rust from "/assets/wasm/wasm_pbkdf2.js";
+        import init, * as Rust from "assets/wasm/wasm_pbkdf2.js";
 
         // A byte order mark character can show up as a result of the conversion
         // between Rust strings (UTF-8) and JavaScript strings (UTF-16).
