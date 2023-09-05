@@ -8,7 +8,7 @@ use crate::State;
 
 pub(crate) async fn get(mut req: Request<State>) -> tide::Result {
     let Some(author) = req.get_author() else {
-        return Ok(utils::response::redirect("/account/manage"));
+        return Ok(utils::response::redirect("account/manage"));
     };
 
     let gitlab_state = match req.state().frontend.auth.gitlab.as_ref() {

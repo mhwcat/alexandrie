@@ -25,7 +25,7 @@ pub(crate) async fn post(mut req: Request<State>) -> tide::Result {
     let author = match req.get_author() {
         Some(author) => author,
         None => {
-            return Ok(utils::response::redirect("/account/manage"));
+            return Ok(utils::response::redirect("account/manage"));
         }
     };
 
@@ -49,7 +49,7 @@ pub(crate) async fn post(mut req: Request<State>) -> tide::Result {
         let flash_message = ManageFlashMessage::PasswordChangeError { message };
         req.session_mut()
             .insert(ACCOUNT_MANAGE_FLASH, &flash_message)?;
-        return Ok(utils::response::redirect("/account/manage"));
+        return Ok(utils::response::redirect("account/manage"));
     }
 
     //? Does the two passwords match (consistency check)?
@@ -58,7 +58,7 @@ pub(crate) async fn post(mut req: Request<State>) -> tide::Result {
         let flash_message = ManageFlashMessage::PasswordChangeError { message };
         req.session_mut()
             .insert(ACCOUNT_MANAGE_FLASH, &flash_message)?;
-        return Ok(utils::response::redirect("/account/manage"));
+        return Ok(utils::response::redirect("account/manage"));
     }
 
     let state = req.state().clone();
@@ -85,7 +85,7 @@ pub(crate) async fn post(mut req: Request<State>) -> tide::Result {
                 let flash_message = ManageFlashMessage::PasswordChangeError { message };
                 req.session_mut()
                     .insert(ACCOUNT_MANAGE_FLASH, &flash_message)?;
-                return Ok(utils::response::redirect("/account/manage"));
+                return Ok(utils::response::redirect("account/manage"));
             }
         };
 
@@ -107,7 +107,7 @@ pub(crate) async fn post(mut req: Request<State>) -> tide::Result {
                     let flash_message = ManageFlashMessage::PasswordChangeError { message };
                     req.session_mut()
                         .insert(ACCOUNT_MANAGE_FLASH, &flash_message)?;
-                    return Ok(utils::response::redirect("/account/manage"));
+                    return Ok(utils::response::redirect("account/manage"));
                 }
             };
 
@@ -129,7 +129,7 @@ pub(crate) async fn post(mut req: Request<State>) -> tide::Result {
                 let flash_message = ManageFlashMessage::PasswordChangeError { message };
                 req.session_mut()
                     .insert(ACCOUNT_MANAGE_FLASH, &flash_message)?;
-                return Ok(utils::response::redirect("/account/manage"));
+                return Ok(utils::response::redirect("account/manage"));
             }
         }
 
@@ -155,7 +155,7 @@ pub(crate) async fn post(mut req: Request<State>) -> tide::Result {
         let flash_message = ManageFlashMessage::PasswordChangeSuccess { message };
         req.session_mut()
             .insert(ACCOUNT_MANAGE_FLASH, &flash_message)?;
-        Ok(utils::response::redirect("/account/manage"))
+        Ok(utils::response::redirect("account/manage"))
     });
 
     transaction.await

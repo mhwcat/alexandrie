@@ -23,7 +23,7 @@ pub(crate) async fn post(mut req: Request<State>) -> tide::Result {
     let author = match req.get_author() {
         Some(author) => author,
         None => {
-            return Ok(utils::response::redirect("/account/manage"));
+            return Ok(utils::response::redirect("account/manage"));
         }
     };
 
@@ -61,7 +61,7 @@ pub(crate) async fn post(mut req: Request<State>) -> tide::Result {
         let flash_message = ManageFlashMessage::TokenGenerationSuccess { message };
         req.session_mut()
             .insert(ACCOUNT_MANAGE_FLASH, &flash_message)?;
-        Ok(utils::response::redirect("/account/manage"))
+        Ok(utils::response::redirect("account/manage"))
     });
 
     transaction.await

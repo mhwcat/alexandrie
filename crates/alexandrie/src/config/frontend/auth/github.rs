@@ -51,7 +51,7 @@ impl GithubAuthState {
     /// Create a new [`GithubAuthState`] from a [`GithubAuthConfig`] and the origin of the current Alexandrie instance.
     pub fn new(config: &GithubAuthConfig, origin: &str) -> Result<Self, Error> {
         let mut redirect_url = Url::parse(&origin)?;
-        redirect_url.set_path("/account/github/callback");
+        redirect_url.set_path("account/github/callback");
 
         let client = BasicClient::new(
             ClientId::new(config.client_id.clone()),

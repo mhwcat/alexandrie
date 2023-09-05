@@ -75,7 +75,7 @@ pub(crate) async fn get(mut req: Request<State>) -> tide::Result {
 
 pub(crate) async fn post(mut req: Request<State>) -> tide::Result {
     if req.is_authenticated() {
-        return Ok(utils::response::redirect("/account/register"));
+        return Ok(utils::response::redirect("account/register"));
     }
 
     let local = &req.state().frontend.config.auth.local;
@@ -120,7 +120,7 @@ pub(crate) async fn post(mut req: Request<State>) -> tide::Result {
         let message = String::from("some fields were left empty.");
         let flash_message = RegisterFlashMessage::Error { message };
         req.session_mut().insert(REGISTER_FLASH, &flash_message)?;
-        return Ok(utils::response::redirect("/account/register"));
+        return Ok(utils::response::redirect("account/register"));
     }
 
     //? Does the two passwords match (consistency check) ?
@@ -128,7 +128,7 @@ pub(crate) async fn post(mut req: Request<State>) -> tide::Result {
         let message = String::from("the two passwords did not match.");
         let flash_message = RegisterFlashMessage::Error { message };
         req.session_mut().insert(REGISTER_FLASH, &flash_message)?;
-        return Ok(utils::response::redirect("/account/register"));
+        return Ok(utils::response::redirect("account/register"));
     }
 
     let state = req.state().clone();
@@ -144,7 +144,7 @@ pub(crate) async fn post(mut req: Request<State>) -> tide::Result {
             let message = String::from("an author already exists for this email.");
             let flash_message = RegisterFlashMessage::Error { message };
             req.session_mut().insert(REGISTER_FLASH, &flash_message)?;
-            return Ok(utils::response::redirect("/account/register"));
+            return Ok(utils::response::redirect("account/register"));
         }
 
         //? Decode hex-encoded password hash.
@@ -154,7 +154,7 @@ pub(crate) async fn post(mut req: Request<State>) -> tide::Result {
                 let message = String::from("password/salt decoding issue.");
                 let flash_message = RegisterFlashMessage::Error { message };
                 req.session_mut().insert(REGISTER_FLASH, &flash_message)?;
-                return Ok(utils::response::redirect("/account/register"));
+                return Ok(utils::response::redirect("account/register"));
             }
         };
 
@@ -218,7 +218,7 @@ pub(crate) async fn post(mut req: Request<State>) -> tide::Result {
         req.session_mut().insert("author.id", author_id)?;
         req.session_mut().expire_in(expiry);
 
-        Ok(utils::response::redirect("/"))
+        Ok(utils::response::redirect(""))
     });
 
     transaction.await

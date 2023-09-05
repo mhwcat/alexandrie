@@ -9,7 +9,7 @@ use crate::State;
 
 pub(crate) async fn get(req: Request<State>) -> tide::Result {
     let Some(author) = req.get_author() else {
-        return Ok(utils::response::redirect("/account/manage"));
+        return Ok(utils::response::redirect("account/manage"));
     };
 
     if count_auth_methods(&author) < 2 {
@@ -29,5 +29,5 @@ pub(crate) async fn get(req: Request<State>) -> tide::Result {
         })
         .await?;
 
-    Ok(utils::response::redirect("/account/manage"))
+    Ok(utils::response::redirect("account/manage"))
 }

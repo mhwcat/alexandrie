@@ -67,7 +67,7 @@ pub(crate) async fn get(mut req: Request<State>) -> tide::Result {
 
 pub(crate) async fn post(mut req: Request<State>) -> tide::Result {
     if req.is_authenticated() {
-        return Ok(utils::response::redirect("/"));
+        return Ok(utils::response::redirect(""));
     }
 
     if !req.state().frontend.config.auth.local.enabled {
@@ -111,7 +111,7 @@ pub(crate) async fn post(mut req: Request<State>) -> tide::Result {
                 let message = String::from("invalid email/password combination.");
                 let flash_message = LoginFlashMessage::Error { message };
                 req.session_mut().insert(LOGIN_FLASH, &flash_message)?;
-                return Ok(utils::response::redirect("/account/login"));
+                return Ok(utils::response::redirect("account/login"));
             }
         };
 
@@ -128,7 +128,7 @@ pub(crate) async fn post(mut req: Request<State>) -> tide::Result {
                 let message = String::from("password/salt decoding issue.");
                 let flash_message = LoginFlashMessage::Error { message };
                 req.session_mut().insert(LOGIN_FLASH, &flash_message)?;
-                return Ok(utils::response::redirect("/account/login"));
+                return Ok(utils::response::redirect("account/login"));
             }
         };
 
@@ -149,7 +149,7 @@ pub(crate) async fn post(mut req: Request<State>) -> tide::Result {
             let message = String::from("invalid email/password combination.");
             let flash_message = LoginFlashMessage::Error { message };
             req.session_mut().insert(LOGIN_FLASH, &flash_message)?;
-            return Ok(utils::response::redirect("/account/login"));
+            return Ok(utils::response::redirect("account/login"));
         }
 
         //? Get the maximum duration of the session.
@@ -162,7 +162,7 @@ pub(crate) async fn post(mut req: Request<State>) -> tide::Result {
         req.session_mut().insert("author.id", author_id)?;
         req.session_mut().expire_in(expiry);
 
-        Ok(utils::response::redirect("/"))
+        Ok(utils::response::redirect(""))
     });
 
     transaction.await
