@@ -148,6 +148,7 @@ pub(crate) async fn post(mut req: Request<State>) -> tide::Result {
         };
 
         diesel::update(authors::table)
+            .filter(authors::id.eq(author.id))
             .set(authors::passwd.eq(encoded_derived_hash.as_str()))
             .execute(conn)?;
 
